@@ -1,0 +1,52 @@
+#include "device.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+List_Device* head = NULL;
+int device_count = 0;
+
+void add_device(Device d) {
+    List_Device* node = (List_Device*)malloc(sizeof(List_Device));
+    node->data = d;
+    node->next = NULL;
+
+    if (!head) head = node;
+    else {
+        List_Device* p = head;
+        while (p->next) p = p->next;
+        p->next = node;
+    }
+    device_count++;
+}
+
+void print_devices() {
+    List_Device* p = head;
+    printf("\n===== DANH SACH THIET BI (%d thiet bi) =====\n", device_count);
+    while (p) {
+        printf("ID: %-8s | Type: %-10s | Status: %s | Power: %7.1fW | Priority: %2d | Essential: %2d\n",
+            p->data.id, p->data.type,
+            p->data.status ? "ON" : "OFF",
+            p->data.consume, p->data.priority, p->data.essential);
+        p = p->next;
+    }
+}
+
+float get_total_power() {
+    float total = 0;
+    List_Device* p = head;
+    while (p) {
+        if (p->data.status) total += p->data.consume;
+        p = p->next;
+    }
+    return total;
+}
+
+void free_list() {
+    List_Device* p = head;
+    while (p) {
+        List_Device* tmp = p;
+        p = p->next;
+        free(tmp);
+    }
+    head = NULL;
+}
