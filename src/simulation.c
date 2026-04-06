@@ -14,7 +14,6 @@ float total_energy = 0.0f;
 float charge_power = 0.0f;
 int is_charging = 0;
 
-
 int get_battery_mode() {
     float percent = (current_battery / battery_capacity) * 100.0f;
     static int current_mode = NORMAL_MODE;
@@ -59,10 +58,10 @@ void auto_control() {
             printf("\n[MODE CHANGE] Mode = Save Battery | Pin = %.1f%%\n", (current_battery / battery_capacity)*100);
             break;
         }
-        print_devices();
+
     }
     last_mode = mode;
-
+//=================================ON/OFF DEVICE===========================================
     List_Device* p = head;
     while (p) {
         Device* d = &p->data;
@@ -89,27 +88,38 @@ void update_charging() {
 
 void simulate_step() {
     total_steps++;
-    auto_control();
-
+    
     update_charging();
     float total_power = get_total_power();
     float net_power = total_power - charge_power;
     current_battery -= net_power * 0.1f;
-
+    
     if (current_battery > battery_capacity) current_battery = battery_capacity;
     if (current_battery < 0) current_battery = 0;
 
     total_energy += total_power * 0.1f;
 
     float percent = (current_battery / battery_capacity) * 100.0f;
+    
+    printf("\n[STEP %d] Pin: %.1f%% | Power: %.1fW\n", total_steps, percent, total_power);
+
+    auto_control();
 
     if (charge_power != 0) {
         printf("\nCharging!");
     } else printf("\nNot Charging!");
-    printf("\n[STEP %d] Pin: %.1f%% | Power: %.1fW\n", total_steps, percent, total_power);
 
-    if (percent < 15.0f || total_power > 3000.0f) {
+
+    if (percent < 15.0f && total_power > 900.0f) {
         total_warnings++;
-        printf("[WARNING] PIN YEU - CONG SUAT QUA CAO !\n");
+        printf("\n[WARNING] PIN YEU - YEU CAU GIAM CONG SUAT XUONG THÂP HON 900W\n");
     }
+
+    if (total_power > 3000.0f) {
+        total_warnings++;
+        printf("\n[WARNING] CONG SUAT QUA CAO !\n");
+    }
+
+    print_devices();
+    printf("\n==========================================================================");
 }

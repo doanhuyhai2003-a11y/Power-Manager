@@ -2,9 +2,9 @@
 #define SIMULATION_H
 
 typedef enum {
-    PERFORMANCE_MODE = 3,
-    NORMAL_MODE = 2,
-    SAVE_MODE = 1
+    PERFORMANCE_MODE,
+    NORMAL_MODE,
+    SAVE_MODE
 } mode_change_t;
 
 extern float battery_capacity;
