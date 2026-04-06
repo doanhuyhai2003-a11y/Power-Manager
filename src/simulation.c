@@ -119,7 +119,7 @@ void simulate_step() {
         total_warnings++;
         printf("\n[WARNING] CONG SUAT QUA CAO !\n");
     }
-//
+//aaa
     print_devices();
     printf("\n==========================================================================");
 }
