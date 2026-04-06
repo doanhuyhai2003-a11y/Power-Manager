@@ -19,6 +19,8 @@ extern List_Device* head;
 extern int device_count;
 
 void add_device(Device d);
+void input_device(Device *d) ;
+void remove_device(const char* id);
 void print_devices();
 float get_total_power();
 void free_list();

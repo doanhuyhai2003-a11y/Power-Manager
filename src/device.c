@@ -1,6 +1,7 @@
 #include "device.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 List_Device* head = NULL;
 int device_count = 0;
@@ -17,6 +18,42 @@ void add_device(Device d) {
         p->next = node;
     }
     device_count++;
+}
+
+void input_device(Device *d) {
+    printf("Nhap ID: "); scanf("%s", d->id);
+    printf("Nhap type: "); scanf("%s", d->type);
+    printf("Nhap consume: "); scanf("%f", &d->consume);
+    printf("Nhap priority: "); scanf("%d", &d->priority);
+    printf("Nhap essential (0/1): "); scanf("%d", &d->essential);
+    d->status = 1;
+}
+
+void remove_device(const char* id) {
+    List_Device* p = head;
+    List_Device* prev = NULL;
+
+    while (p != NULL) {
+        if (strcmp(p->data.id, id) == 0) {
+            // Xóa node đầu
+            if (prev == NULL) {
+                head = p->next;
+            } else {
+                prev->next = p->next;
+            }
+
+            free(p);
+            device_count--;
+
+            printf("Da xoa thiet bi co ID = %s\n", id);
+            return;
+        }
+
+        prev = p;
+        p = p->next;
+    }
+
+    printf("Khong tim thay thiet bi co ID = %s\n", id);
 }
 
 void print_devices() {
