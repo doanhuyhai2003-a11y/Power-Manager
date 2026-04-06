@@ -80,7 +80,7 @@ void update_charging() {
 
     if (percent < 80.0f) {
         is_charging = 1;
-        charge_power = 900.0f;   // hoặc đọc từ config
+        charge_power = 900.0f;
     } else if (percent > 95.5f) {
         is_charging = 0;
         charge_power = 0.0f;

@@ -51,7 +51,7 @@ int parse_device(const char *line, Device *d) {
 }
 
 void load_devices_file(const char* filename) {
-    free_list();      // xóa danh sách cũ
+    free_list();
     head = NULL;
     device_count = 0;
     FILE* f = fopen(filename, "r");
@@ -70,7 +70,7 @@ void load_devices_file(const char* filename) {
         Device d = {0};
         if (parse_device(line, &d)) {
             add_device(d);
-            //device_count++;
+            
         } else {
             printf("[DEBUG] Dong %d parse that bai: %s", line_num, line);
         }

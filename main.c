@@ -33,7 +33,6 @@ int main() {
                 Device d;
                 input_device(&d);
                 add_device(d);
-                //device_count++;
                 break;
             }
 
