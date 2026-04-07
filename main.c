@@ -19,10 +19,20 @@ void menu() {
 int main() {
     load_devices_file("devices.txt");
     int choice;
+
     do {
         menu();
         printf("Chon: ");
-        scanf("%d", &choice);
+
+        // kiểm tra nhập có phải số không
+        if (scanf("%d", &choice) != 1) {
+            printf("Khong hop le, vui long nhap lai!\n");
+
+            // xóa buffer (bỏ ký tự sai)
+            while (getchar() != '\n');
+
+            continue; // quay lại menu
+        }
 
         switch (choice) {
             case 1:
@@ -56,12 +66,14 @@ int main() {
             case 6:
                 export_report();
                 break;
-            case 7:
+
+            case 7: {
                 char id[50];
                 printf("Nhap ID can xoa: ");
                 scanf("%s", id);
                 remove_device(id);
                 break;
+            }
 
             case 0:
                 save_devices_file("devices.txt");
@@ -69,7 +81,7 @@ int main() {
                 break;
 
             default:
-                printf("Sai lua chon!\n");
+                printf("Khong hop le, vui long nhap lai!\n");
         }
 
     } while (choice != 0);
