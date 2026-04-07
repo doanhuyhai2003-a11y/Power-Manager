@@ -24,14 +24,14 @@ int main() {
         menu();
         printf("Chon: ");
 
-        // kiểm tra nhập có phải số không
+        // Check input menu
         if (scanf("%d", &choice) != 1) {
             printf("Khong hop le, vui long nhap lai!\n");
 
-            // xóa buffer (bỏ ký tự sai)
+            // Delete buffer
             while (getchar() != '\n');
 
-            continue; // quay lại menu
+            continue; // Back to menu
         }
 
         switch (choice) {
