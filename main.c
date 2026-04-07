@@ -49,16 +49,30 @@ int main() {
             case 3:
                 simulate_step();
                 break;
-
             case 4: {
                 int n;
                 printf("Nhap n: ");
-                scanf("%d", &n);
+                // kiểm tra nhập có phải số không
+                if (scanf("%d", &n) != 1) {
+                printf("Khong hop le, vui long nhap lai!\n");
+
+                // xóa buffer
+                while (getchar() != '\n');
+                break;
+                }
+
+                // kiểm tra giá trị hợp lệ
+                if (n <= 0) {
+                printf("Khong hop le, n phai > 0!\n");
+                break;
+                }
+
                 for (int i = 0; i < n; i++)
-                    simulate_step();
+                simulate_step();
+
                 break;
             }
-
+            
             case 5:
                 save_devices_file("devices.txt");
                 break;
