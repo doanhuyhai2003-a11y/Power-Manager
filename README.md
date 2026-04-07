@@ -17,7 +17,9 @@ The system will read the config information from txt file. Example:
 # 5. How to Run
 Running main.exe
 # 6. Simulation Logic
-Read devices.txt for devices's config ---> 
++ Battery > 75% ---> System in better performance mode ---> Turn on all devices
++ Battery > 25% ---> System in better battery mode ---> Turn on priority devices (priority <= 3)
++ Battery < 25% ---> System in save battery mode ---> Turn off all devices, turn on only essential devices
 # 7. Future Improvements
 We're going to fix and improve smart charger
 # 8. Author
