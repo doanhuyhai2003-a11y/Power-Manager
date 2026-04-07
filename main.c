@@ -19,10 +19,20 @@ void menu() {
 int main() {
     load_devices_file("devices.txt");
     int choice;
+
     do {
         menu();
         printf("Chon: ");
-        scanf("%d", &choice);
+
+        // Check input menu
+        if (scanf("%d", &choice) != 1) {
+            printf("Khong hop le, vui long nhap lai!\n");
+
+            // Delete buffer
+            while (getchar() != '\n');
+
+            continue; // Back to menu
+        }
 
         switch (choice) {
             case 1:
@@ -39,16 +49,30 @@ int main() {
             case 3:
                 simulate_step();
                 break;
-
             case 4: {
                 int n;
                 printf("Nhap n: ");
-                scanf("%d", &n);
+                // kiểm tra nhập có phải số không
+                if (scanf("%d", &n) != 1) {
+                printf("Khong hop le, vui long nhap lai!\n");
+
+                // xóa buffer
+                while (getchar() != '\n');
+                break;
+                }
+
+                // kiểm tra giá trị hợp lệ
+                if (n <= 0) {
+                printf("Khong hop le, n phai > 0!\n");
+                break;
+                }
+
                 for (int i = 0; i < n; i++)
-                    simulate_step();
+                simulate_step();
+
                 break;
             }
-
+            
             case 5:
                 save_devices_file("devices.txt");
                 break;
@@ -56,12 +80,14 @@ int main() {
             case 6:
                 export_report();
                 break;
-            case 7:
+
+            case 7: {
                 char id[50];
                 printf("Nhap ID can xoa: ");
                 scanf("%s", id);
                 remove_device(id);
                 break;
+            }
 
             case 0:
                 save_devices_file("devices.txt");
@@ -69,7 +95,7 @@ int main() {
                 break;
 
             default:
-                printf("Sai lua chon!\n");
+                printf("Khong hop le, vui long nhap lai!\n");
         }
 
     } while (choice != 0);
